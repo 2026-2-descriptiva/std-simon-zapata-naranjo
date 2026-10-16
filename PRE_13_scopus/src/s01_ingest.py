@@ -1,5 +1,4 @@
 from pathlib import Path
-
 import pandas as pd
 
 DATA_DIRECTORY = Path(__file__).resolve().parent.parent / "data"
