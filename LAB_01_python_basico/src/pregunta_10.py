@@ -1,3 +1,8 @@
+if __package__:
+    from . import help
+else:
+    import help
+
 def pregunta_10():
     """
     Para cada registro del archivo, en el mismo orden en que aparecen,
@@ -10,5 +15,11 @@ def pregunta_10():
 
         [("E", 3, 5), ("A", 3, 4), ("B", 4, 4), ...]
     """
-
-    raise NotImplementedError
+    df=help.load_data()
+    ans=[]
+    for line in df:
+        letter=line[0]
+        code=len(line[3].split(","))
+        metric=len(line[4].split(","))
+        ans.append((letter,code,metric))
+    return ans

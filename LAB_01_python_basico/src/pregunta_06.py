@@ -1,3 +1,8 @@
+if __package__:
+    from . import help
+else:
+    import help
+
 def pregunta_06():
     """
     La quinta columna (`metrics`) contiene pares `clave:valor` separados por
@@ -12,5 +17,18 @@ def pregunta_06():
 
         [("aaa", 1, 9), ("bbb", 1, 9), ...]
     """
-
-    raise NotImplementedError
+    df=help.load_data()
+    ans={}
+    for line in df:
+        pairs=line[4].split(",")
+        for pair in pairs:
+            key,value=pair.split(":")
+            value=int(value)
+            if key in ans:
+                ans[key][0]=min(ans[key][0],value)
+                ans[key][1]=max(ans[key][1],value)
+            else:
+                ans[key]=[value,value]
+    ans=[(key,ans[key][0],ans[key][1]) for key in sorted(ans.keys())]
+                                
+    return ans

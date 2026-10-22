@@ -1,3 +1,8 @@
+if __package__:
+    from . import help
+else:
+    import help
+
 def pregunta_12():
     """
     Para cada letra de la primera columna (`letter`), sume todos los valores
@@ -8,5 +13,18 @@ def pregunta_12():
 
         {"A": 177, "B": 187, "C": 114, ...}
     """
-
-    raise NotImplementedError
+    df= help.load_data()
+    ans={}
+    for line in df:
+        letter=line[0]
+        metrics=line[4].split(",")
+        s=0
+        for metric in metrics:
+            key,value=metric.split(":")
+            s+=int(value)
+        if letter in ans:
+            ans[letter]+=s
+        else:
+            ans[letter]=s
+    
+    return ans

@@ -1,3 +1,5 @@
+import LAB_01_python_basico.src.help as help
+
 def pregunta_01():
     """
     Calcule la suma de los valores de la segunda columna (`value`) del
@@ -7,5 +9,13 @@ def pregunta_01():
 
         214
     """
+    total = 0
+    
 
-    raise NotImplementedError
+    f=help.load_data()
+    
+    for line in f:
+        total+=int(line[1])
+            
+
+    return total
