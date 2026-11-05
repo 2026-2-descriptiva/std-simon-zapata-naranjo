@@ -1,3 +1,6 @@
+import pandas as pd
+import os
+
 def pregunta_01():
     """
     Las frases de este laboratorio no están en una tabla, sino en miles de
@@ -26,4 +29,27 @@ def pregunta_01():
         ...
     """
 
-    raise NotImplementedError
+    os.makedirs("submission", exist_ok=True)
+
+    for split in ["train", "test"]:
+        split_dir = os.path.join("data", split)
+        records = []
+
+        # Recorrer carpetas de sentimiento en orden alfabético
+        targets = sorted(os.listdir(split_dir))
+        for target in targets:
+            target_dir = os.path.join(split_dir, target)
+            if not os.path.isdir(target_dir):
+                continue
+
+            # Recorrer archivos .txt en orden alfabético
+            filenames = sorted(os.listdir(target_dir))
+            for filename in filenames:
+                if filename.endswith(".txt"):
+                    file_path = os.path.join(target_dir, filename)
+                    with open(file_path, mode="r", encoding="utf-8") as f:
+                        phrase = f.read().strip()
+                    records.append({"phrase": phrase, "target": target})
+
+        df = pd.DataFrame(records)
+        df.to_csv(f"submission/{split}_dataset.csv", index=False)
