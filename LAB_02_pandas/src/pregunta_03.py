@@ -1,3 +1,8 @@
+if __package__:
+    from . import help
+else:
+    import help
+
 def pregunta_03():
     """
     Usando `data/tbl0.tsv`, cuente cuántos registros hay para cada categoría
@@ -12,5 +17,5 @@ def pregunta_03():
         C     5
         ...
     """
-
-    raise NotImplementedError
+    df = help.load_data("data/tbl0.tsv")
+    return df.groupby("c1").size().sort_index()

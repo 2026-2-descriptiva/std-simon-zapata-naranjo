@@ -1,3 +1,8 @@
+if __package__:
+    from . import help
+else:
+    import help
+
 def pregunta_13():
     """
     Combine las tablas `data/tbl0.tsv` y `data/tbl2.tsv` usando la columna
@@ -15,4 +20,9 @@ def pregunta_13():
         ...
     """
 
-    raise NotImplementedError
+    df0=help.load_data("data/tbl0.tsv")
+    df2=help.load_data("data/tbl2.tsv")
+    merged_df=df0.merge(df2, on="c0")
+    result=merged_df.groupby("c1")["c5b"].sum()
+    result=result.sort_index()
+    return result

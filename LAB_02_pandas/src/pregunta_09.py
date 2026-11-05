@@ -1,3 +1,8 @@
+if __package__:
+    from . import help
+else:
+    import help
+
 def pregunta_09():
     """
     Retorne la tabla `data/tbl0.tsv` completa con una columna adicional
@@ -13,4 +18,6 @@ def pregunta_09():
         ...
     """
 
-    raise NotImplementedError
+    df=help.load_data("data/tbl0.tsv")
+    df["year"]=df["c3"].str[:4]
+    return df

@@ -1,3 +1,8 @@
+if __package__:
+    from . import help
+else:
+    import help
+
 def pregunta_12():
     """
     En `data/tbl2.tsv`, cada valor de la columna `c0` aparece en varias
@@ -15,4 +20,11 @@ def pregunta_12():
         ...
     """
 
-    raise NotImplementedError
+    df = help.load_data("data/tbl2.tsv")
+    df["c5_pair"] = df["c5a"].astype(str) + ":" + df["c5b"].astype(str)
+    result = (
+        df.groupby("c0")["c5_pair"]
+        .apply(lambda x: ",".join(sorted(x)))
+        .reset_index(name="c5")
+    )
+    return result

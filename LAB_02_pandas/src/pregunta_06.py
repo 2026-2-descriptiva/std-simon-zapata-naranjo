@@ -1,3 +1,8 @@
+if __package__:
+    from . import help
+else:
+    import help
+
 def pregunta_06():
     """
     Usando `data/tbl1.tsv`, obtenga los valores distintos de la columna `c4`,
@@ -9,4 +14,5 @@ def pregunta_06():
         ["A", "B", "C", "D", "E", "F", "G"]
     """
 
-    raise NotImplementedError
+    df=help.load_data("data/tbl1.tsv")
+    return sorted(df["c4"].str.upper().unique().tolist())

@@ -1,3 +1,9 @@
+if __package__:
+    from . import help
+else:
+    import help
+
+
 def pregunta_11():
     """
     En `data/tbl1.tsv`, cada valor de la columna `c0` aparece en varias
@@ -15,4 +21,11 @@ def pregunta_11():
         ...
     """
 
-    raise NotImplementedError
+    df=help.load_data("data/tbl1.tsv")
+    result = (
+        df.groupby("c0")
+        .agg({"c4": lambda x: ",".join(sorted(x))})
+        .reset_index()
+    )
+    return result
+

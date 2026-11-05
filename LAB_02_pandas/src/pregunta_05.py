@@ -1,3 +1,8 @@
+if __package__:
+    from . import help
+else:
+    import help
+
 def pregunta_05():
     """
     Usando `data/tbl0.tsv`, encuentre el valor máximo de la columna `c2` para
@@ -13,4 +18,5 @@ def pregunta_05():
         ...
     """
 
-    raise NotImplementedError
+    df=help.load_data("data/tbl0.tsv")
+    return df.groupby("c1")["c2"].max().sort_index()

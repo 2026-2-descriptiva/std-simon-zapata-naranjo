@@ -1,3 +1,8 @@
+if __package__:
+    from . import help
+else:
+    import help
+
 def pregunta_10():
     """
     Usando `data/tbl0.tsv`, construya para cada categoría de la columna `c1`
@@ -15,4 +20,9 @@ def pregunta_10():
         ...
     """
 
-    raise NotImplementedError
+    df= help.load_data("data/tbl0.tsv")
+    col2=df.groupby("c1")["c2"]
+    col2=col2.apply(lambda x: ":".join(map(str,sorted(x))))
+    col2=col2.to_frame()
+    result=col2.sort_index()
+    return result
